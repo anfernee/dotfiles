@@ -1,0 +1,145 @@
+" filetype off
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
+" Not compatible with vi
+set nocompatible
+
+" hides buffer instaead of closing them
+set hidden
+
+" Syntax on
+syntax on
+
+colorscheme delek
+
+" tab = 4 spaces
+" set tabstop=2     " what a real tab count for is 8, visually
+" set shiftwidth=2  " for << and >>
+" set softtabstop=2 " what you got when you hit 'tab'
+" set expandtab     " when hit tab, output spaces
+
+autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+" autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
+set hlsearch      " highlight search
+set noswapfile    " no swap file
+set nobackup      " no backup files
+
+
+" add new filetype html.erb
+au BufNewFile,BufRead *.html.erb set filetype=html
+au BufNewFile,BufRead *.go set filetype=go
+
+" ruby omnicomplete
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
+
+" change leader from \ to ,
+let mapleader=","
+
+" NERD_COMMENT
+let NERDShutUp=1
+map <C-h> \c<space>
+
+" Default <leader>='\'
+nnoremap <leader>1 yypVr=
+
+" Return to normal when hit jj in insert mode
+inoremap jj <ESC>
+
+" inc search
+set is
+
+" Set paste mode
+set pastetoggle=<F9>
+
+" Re-select region
+vmap < <gv
+vmap > >gv
+
+" fold column
+" set foldcolumn=1
+
+" highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" status line
+set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
+"set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V)\%P\*%=%{CurTime()}
+set rulerformat=%15(%c%V\ %p%%%)
+set laststatus=2  " always show status line
+
+function! FileTime()
+  let ext=tolower(expand("%:e"))
+  let fname=tolower(expand('%<'))
+  let filename=fname . '.' . ext
+  let msg=""
+  let msg=msg." ".strftime("(Modified %b,%d %y %H:%M:%S)",getftime(filename))
+  return msg
+endfunction
+
+function! CurTime()
+  let ftime=""
+  let ftime=ftime." ".strftime("%b,%d %y %H:%M:%S")
+  return ftime
+endfunction
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" I try to use vim
+if has("cscope")
+  set cscopetag
+  " check cscope for definition of a symbol before checking ctags: set to 1
+  " if you want the reverse search order.
+  set csto=0
+
+  if filereadable("cscope.out")
+	  cs add cscope.out
+  endif
+
+  " show msg when any other cscope db added
+  set cscopeverbose
+
+  nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>  
+  nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>  
+  nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>  
+  nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>  
+  nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>  
+  nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>  
+
+
+  " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
+  nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR> 
+  nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR> 
+  nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR> 
+  nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR> 
+  nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR> 
+  nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR> 
+  nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR> 
+  nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR> 
+endif
+
+" tagbar
+nnoremap <silent> <F10> :TagbarToggle<CR>
+nnoremap <silent> <F8> :NERDTreeToggle<CR>
+
+" Used for gf
+set path=.,,include,/usr/local/include,/usr/include
+
+" wrap line
+nnoremap qq V}gq
+
+filetype plugin indent on
