@@ -5,7 +5,7 @@ function save()
 	local file back_file
 	file=$1
 
-	if [ -e $file ]; then
+	if [ -e $file ] && [ ! -h $file ]; then
 		back_file=$file.$(date +%s).back
 
 		echo Backing up $file to $back_file
@@ -30,7 +30,7 @@ function update()
 
 	save $newfile
 
-	ln -s $(readlink -f $file) $newfile
+	[ ! -e $newfile ] && ln -sf $PWD/$file $newfile
 }
 
 git submodule update --init
