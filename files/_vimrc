@@ -22,6 +22,7 @@ colorscheme delek
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 " autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
@@ -74,7 +75,8 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " status line
-set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
+set statusline=%<%f%<%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
+"set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
 "set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V)\%P\*%=%{CurTime()}
 set rulerformat=%15(%c%V\ %p%%%)
 set laststatus=2  " always show status line
