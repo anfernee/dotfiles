@@ -19,3 +19,9 @@
 [submodule "files/_vim/bundle/vim-task"]
 	path = files/_vim/bundle/vim-task
 	url = http://github.com/samsonw/vim-task.git
+[submodule "files/_vim/bundle/vim-go"]
+	path = files/_vim/bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule "files/_vim/bundle/YouCompleteMe"]
+	path = files/_vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git

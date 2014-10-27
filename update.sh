@@ -33,7 +33,10 @@ function update()
 	[ ! -e $newfile ] && ln -sf $PWD/$file $newfile
 }
 
-git submodule update --init
+git submodule update --init --recursive
+
+# YouCompleteMe
+files/_vim/bundle/YouCompleteMe/install.sh
 
 pushd files
 
