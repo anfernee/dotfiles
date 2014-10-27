@@ -58,7 +58,7 @@ set nobackup      " no backup files
 
 " NERD_COMMENT
 let NERDShutUp=1
-map <C-h> \c<space>
+map <C-h> <leader>c<space>
 
 " Default <leader>='\'
 nnoremap <leader>1 yypVr=
