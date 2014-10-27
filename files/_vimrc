@@ -21,10 +21,13 @@ colorscheme delek
 
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-" autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
+" set python tw as 79
+autocmd FileType python setlocal textwidth=79
 
 set hlsearch      " highlight search
 set noswapfile    " no swap file
