@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/anfernee/code/gerrit/bosh/aws_cpi/lib/cloud'
-let g:netrw_dirhist_2='/home/anfernee/code/gerrit/vcap-services/tools/mongodb_proxy_new/config'
-let g:netrw_dirhist_3='/home/anfernee/code/github/go-mongo/examples/little-book'
-let g:netrw_dirhist_4='/home/anfernee/.deployments/devbox/config/nats_server'
-let g:netrw_dirhist_5='/home/anfernee/code/gerrit/cloud_controller_ng/config/frameworks'
-let g:netrw_dirhist_6='/home/anfernee/code/gerrit/bosh/agent/misc/stemcell/build2/stages/base_debootstrap'

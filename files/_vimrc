@@ -1,6 +1,35 @@
-" filetype off
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'fatih/vim-go'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdcommenter'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"
+" Settings
+"
 
 " Not compatible with vi
 set nocompatible
@@ -12,12 +41,6 @@ set hidden
 syntax on
 
 colorscheme delek
-
-" tab = 4 spaces
-" set tabstop=2     " what a real tab count for is 8, visually
-" set shiftwidth=2  " for << and >>
-" set softtabstop=2 " what you got when you hit 'tab'
-" set expandtab     " when hit tab, output spaces
 
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
@@ -32,19 +55,6 @@ autocmd FileType python setlocal textwidth=79
 set hlsearch      " highlight search
 set noswapfile    " no swap file
 set nobackup      " no backup files
-
-
-" add new filetype html.erb
-au BufNewFile,BufRead *.html.erb set filetype=html
-au BufNewFile,BufRead *.go set filetype=go
-
-" ruby omnicomplete
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
-
-" change leader from \ to ,
-let mapleader=","
 
 " NERD_COMMENT
 let NERDShutUp=1
@@ -147,4 +157,19 @@ set path=.,,include,/usr/local/include,/usr/include
 " wrap line
 nnoremap qq V}gq
 
-filetype plugin indent on
+
+" govim
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+
