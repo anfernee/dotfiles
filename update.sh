@@ -33,15 +33,16 @@ function update()
 	[ ! -e $newfile ] && ln -sf $PWD/$file $newfile
 }
 
-git submodule update --init --recursive
-
-# YouCompleteMe
-files/_vim/bundle/YouCompleteMe/install.sh
+vundle_path=~/.vim/bundle/Vundle.vim
+if [ ! -f $vundle_path ]; then
+	git clone https://github.com/gmarik/Vundle.vim.git $vundle_path
+fi
 
 pushd files
-
 for file in `ls`; do
 	update $file
 done
-
 popd
+
+# Vundle install
+vim +PluginInstall +qall
