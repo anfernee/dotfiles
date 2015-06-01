@@ -17,7 +17,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -43,6 +43,7 @@ syntax on
 colorscheme delek
 
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType sh setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
@@ -88,26 +89,24 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " status line
-set statusline=%<%f%<%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
-"set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V,totlin=%L%)\%h%m%r%=%-30(,BfNm=%n%Y%)\%P\*%=%{CurTime()}
-"set statusline=%<%f%<%{FileTime()}%<%h%m%r%=%-20.(line=%03l,col=%02c%V)\%P\*%=%{CurTime()}
-set rulerformat=%15(%c%V\ %p%%%)
 set laststatus=2  " always show status line
+set statusline=
+set statusline +=%1*\ %n\ %*            "buffer number
+set statusline +=%5*%{&ff}%*            "file format
+set statusline +=%3*%y%*                "file type
+set statusline +=%4*\ %<%F%*            "full path
+set statusline +=%2*%m%*                "modified flag
+set statusline +=%1*%=%5l%*             "current line
+set statusline +=%2*/%L%*               "total lines
+set statusline +=%1*%4v\ %*             "virtual column number
+set statusline +=%2*0x%04B\ %*          "character under cursor
 
-function! FileTime()
-  let ext=tolower(expand("%:e"))
-  let fname=tolower(expand('%<'))
-  let filename=fname . '.' . ext
-  let msg=""
-  let msg=msg." ".strftime("(Modified %b,%d %y %H:%M:%S)",getftime(filename))
-  return msg
-endfunction
-
-function! CurTime()
-  let ftime=""
-  let ftime=ftime." ".strftime("%b,%d %y %H:%M:%S")
-  return ftime
-endfunction
+" Color for status line
+hi User1 guifg=#eea040 guibg=#222222 ctermfg=130
+hi User2 guifg=#dd3333 guibg=#222222 ctermfg=154
+hi User3 guifg=#ff66ff guibg=#222222 ctermfg=124
+hi User4 guifg=#a0ee40 guibg=#222222 ctermfg=Green
+hi User5 guifg=#eeee40 guibg=#222222 ctermfg=154
 
 " Set to auto read when a file is changed from the outside
 set autoread
