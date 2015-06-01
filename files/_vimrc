@@ -77,6 +77,9 @@ set pastetoggle=<F9>
 vmap < <gv
 vmap > >gv
 
+" backspace doesn't work on mac and kali
+set backspace=indent,eol,start
+
 " fold column
 " set foldcolumn=1
 
@@ -171,4 +174,3 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>e <Plug>(go-rename)
-
