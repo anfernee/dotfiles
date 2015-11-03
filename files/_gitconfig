@@ -8,6 +8,12 @@
   st = status
   sm = submodule
   god = log --graph --oneline --decorate
+  change = codereview change
+  gofmt = codereview gofmt
+  mail = codereview mail
+  pending = codereview pending
+  submit = codereview submit
+  sync = codereview sync
 [color]
   ui = auto
 [core]
@@ -16,3 +22,17 @@
   excludesfile = /Users/anfernee/.gitignore_global
 [push]
   default = simple
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[merge]
+	conflictstyle = diff3
+[http]
+	cookiefile = /Users/anfernee/.gitcookies
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
