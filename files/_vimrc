@@ -58,6 +58,7 @@ autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType rust setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType erlang setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
@@ -187,3 +188,6 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
 let g:go_fmt_command = "goimports"
+
+" file type
+au BufRead,BufNewFile *.rs set filetype=rust
