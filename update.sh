@@ -51,4 +51,4 @@ vim +PluginInstall +qall
 cd ~/.vim/bundle/vim-snippets
 git remote add anfernee https://github.com/anfernee/vim-snippets.git
 git fetch anfernee
-git checkout remote/anfernee/master
+git checkout anfernee/master
