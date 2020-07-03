@@ -1,6 +1,6 @@
 [user]
-  name = Anfernee Gui
-  email = agui@vmware.com
+  name = Yongkun Gui
+  email = ygui@google.com
 [alias]
   co = checkout
   ci = commit
