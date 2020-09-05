@@ -1,0 +1,1 @@
+for i in /lib/modules/$(uname -r)/kernel/net/netfilter/*; do echo "\e[33;1m$(basename "$i")\e[0m"; strings "$i" | \grep -e description -e depends| sed -e 's/Xtables: //g' -e 's/=/: /g' -e 's/depends=/depends on: /g'; echo; done
