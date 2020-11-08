@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Install veth pair before running
+
+
+
+# Not working
+sudo ip netns exec ns1 ping 10.1.1.102
+
+# Add bridge and add veth to the br
+sudo ovs-vsctl add-br br0
+sudo ovs-vsctl add-port br0 ve1 
+sudo ovs-vsctl add-port br0 ve2 
+
+# It works
+sudo ip netns exec ns1 ping 10.1.1.102
+
+# Add flow to drop icmp
+sudo ovs-ofctl add-flow br0 priority=100,icmp,actions=drop
+
+# Not working
+sudo ip netns exec ns1 ping 10.1.1.102
+
+# Dump flows
+sudo ovs-ofctl dump-flows br0
+

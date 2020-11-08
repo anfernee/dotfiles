@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Running with sudo
+
+ip netns add ns1
+ip netns add ns2
+
+ip link add ve1 type veth peer name vens1
+ip link add ve2 type veth peer name vens2
+ip link set dev ve1 up
+ip link set dev ve2 up
+ip link set dev ve1 mtu 1500
+ip link set dev ve2 mtu 1500
+ip link set dev vens1 netns ns1
+ip link set dev vens2 netns ns2
+
+ip -n ns1 link set dev lo up
+ip -n ns1 link set dev vens1 up
+ip -n ns1 addr add 10.1.1.101/24 dev vens1
+ip -n ns1 addr add 2401:db01::65/64 dev vens1 nodad
+
+ip -n ns2 link set dev lo up
+ip -n ns2 link set dev vens2 up
+ip -n ns2 addr add 10.2.1.102/24 dev vens2
+ip -n ns2 addr add 2401:db02::66/64 dev vens2 nodad
+
