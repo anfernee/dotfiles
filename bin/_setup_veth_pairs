@@ -21,6 +21,6 @@ ip -n ns1 addr add 2401:db01::65/64 dev vens1 nodad
 
 ip -n ns2 link set dev lo up
 ip -n ns2 link set dev vens2 up
-ip -n ns2 addr add 10.2.1.102/24 dev vens2
+ip -n ns2 addr add 10.1.1.102/24 dev vens2
 ip -n ns2 addr add 2401:db02::66/64 dev vens2 nodad
 
