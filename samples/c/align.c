@@ -35,6 +35,14 @@ struct my_struct_reduced
 	int b __attribute__((aligned (2)));
 };
 
+// 'aligned' on a struct member cannot decrease the alignment below the
+// natural alignment of that member. b aligns on 4-byte boundary.
+struct my_struct_reduced_2
+{
+	char a;
+	int b __attribute__((aligned (16)));
+};
+
 // Combine 'packed' and 'aligned' on a struct member to set the alignment for that
 // member to any value. b aligns on 2-byte boundary.
 struct my_struct_packed
@@ -54,6 +62,7 @@ int main() {
 
   SHOW_STRUCT(my_struct);
   SHOW_STRUCT(my_struct_reduced);
+  SHOW_STRUCT(my_struct_reduced_2);
   SHOW_STRUCT(my_struct_packed);
   return 0;
 }
@@ -65,6 +74,9 @@ my_struct is size 32, align 16
 my_struct_reduced is size 8, align 4
   a is at offset 0
   b is at offset 4
+my_struct_reduced_2 is size 32, align 16
+  a is at offset 0
+  b is at offset 16
 my_struct_packed is size 6, align 2
   a is at offset 0
   b is at offset 2
