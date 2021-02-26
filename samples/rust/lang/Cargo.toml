@@ -1,0 +1,15 @@
+[package]
+name = "lang"
+version = "0.1.0"
+authors = ["Yongkun Gui <ygui@google.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.118", features = ["derive"] }
+serde_json = "1.0.61"
+
+[[example]]
+name = "json"
+path = "json.rs"
