@@ -54,3 +54,13 @@ git fetch anfernee
 git checkout anfernee/master
 
 ln -sf $PWD/bin ~/
+
+# oh-my-zsh
+sudo apt install zsh
+sudo apt install curl
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+echo 'Add "plugins=(zsh-autosuggestions)" in ~/.zshrc'
+
