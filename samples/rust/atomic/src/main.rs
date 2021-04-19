@@ -1,7 +1,11 @@
 // From Curst of Rust: Atomics and Memory Ordering
 // https://www.youtube.com/watch?v=rMGWeSjctlY&t=2497s
 
+
+// UnsafeCell gives you .get() for a raw pointer *mut T
+// https://doc.rust-lang.org/std/cell/struct.UnsafeCell.html
 use std::cell::UnsafeCell;
+
 use std::sync::atomic::AtomicBool;
 use std::sync::atomic::Ordering;
 
@@ -31,11 +35,28 @@ impl<T> Mutex<T> {
 
     // R?
     // Ordering?
-    pub fn with_lock<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
+    pub fn with_lock_bad<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
         while self.locked.load(Ordering::Relaxed) != UNLOCKED {}
         self.locked.store(LOCKED, Ordering::Relaxed);
 
         // unsafe {}?
+        let ret = f(unsafe { &mut *self.v.get() });
+        self.locked.store(UNLOCKED, Ordering::Relaxed);
+        ret
+    }
+
+    pub fn with_lock<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
+        // x86: CAS
+        // ARM: LDREX STREX
+        //      - compare_exchange is implemented with a loop of LDREX and STREX. STREX might fail.
+        //      - compare_exchange_weak: Just LDREX and STREX
+        while self.locked.compare_exchange(UNLOCKED, LOCKED, Ordering::Relaxed, Ordering::Relaxed).is_err() {
+            // MESI protocol
+            while self.locked.load(Ordering::Relaxed) == LOCKED {
+                std::thread::yield_now();
+            }
+            std::thread::yield_now();
+        }
         let ret = f(unsafe { &mut *self.v.get() });
         self.locked.store(UNLOCKED, Ordering::Relaxed);
         ret
@@ -51,7 +72,7 @@ fn main() {
     let l :&'static _ = Box::leak(Box::new(Mutex::new(0)));
 
     // _?
-    let handles: Vec<_> = (0..10).map(|_| {
+    let handles: Vec<_> = (0..8).map(|_| {
         // move?
         spawn(move || {
             for _ in 0..100 {
@@ -66,5 +87,5 @@ fn main() {
         handle.join().unwrap();
     }
 
-    assert_eq!(l.with_lock(|v| *v), 10 * 100);
+    assert_eq!(l.with_lock(|v| *v), 8 * 100);
 }
