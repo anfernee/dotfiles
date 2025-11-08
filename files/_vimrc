@@ -49,7 +49,8 @@ set hidden
 " Syntax on
 syntax on
 
-colorscheme delek
+" not working in vim 9.1
+" colorscheme delek
 
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType sh setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
