@@ -8,34 +8,13 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'fatih/vim-go'
-Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'ervandew/supertab'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-let g:snips_author="Anfernee Yongkun Gui"
-let g:snips_email="anfernee.gui@gmail.com"
-let g:snips_github="anfernee"
 "
 " Settings
 "
@@ -62,6 +41,9 @@ autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType rust setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType erlang setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
+" rust filetype
+au BufRead,BufNewFile *.rs set filetype=rust
 
 " set python tw as 79
 autocmd FileType python setlocal textwidth=79
@@ -127,41 +109,6 @@ hi User5 guifg=#eeee40 guibg=#222222 ctermfg=154
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" I try to use vim
-if has("cscope")
-  set cscopetag
-  " check cscope for definition of a symbol before checking ctags: set to 1
-  " if you want the reverse search order.
-  set csto=0
-
-  if filereadable("cscope.out")
-	  cs add cscope.out
-  endif
-
-  " show msg when any other cscope db added
-  set cscopeverbose
-
-  nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>  
-  nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>  
-  nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>  
-  nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>  
-  nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>  
-  nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>  
-
-
-  " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
-  nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR> 
-  nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR> 
-  nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR> 
-  nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR> 
-  nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR> 
-  nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR> 
-  nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR> 
-  nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR> 
-endif
-
 " tagbar
 nnoremap <silent> <F10> :TagbarToggle<CR>
 nnoremap <silent> <F8> :NERDTreeToggle<CR>
@@ -171,24 +118,3 @@ set path=.,,include,/usr/local/include,/usr/include
 
 " wrap line
 nnoremap qq V}gq
-
-
-" govim
-au FileType go nmap <Leader>s <Plug>(go-implements)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>e <Plug>(go-rename)
-
-let g:go_fmt_command = "goimports"
-
-" file type
-au BufRead,BufNewFile *.rs set filetype=rust

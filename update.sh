@@ -47,12 +47,6 @@ popd
 # Vundle install
 vim +PluginInstall +qall
 
-# Switch to my snippet
-cd ~/.vim/bundle/vim-snippets
-git remote add anfernee https://github.com/anfernee/vim-snippets.git
-git fetch anfernee
-git checkout anfernee/master
-
 ln -sf $PWD/bin ~/
 
 # oh-my-zsh
