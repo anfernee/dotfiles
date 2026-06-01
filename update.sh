@@ -50,8 +50,22 @@ vim +PluginInstall +qall
 ln -sf $PWD/bin ~/
 
 # oh-my-zsh
-sudo apt install zsh
-sudo apt install curl
+sudo apt install -y zsh
+sudo apt install -y curl
+
+# Update claude configuration
+save ~/.claude/CLAUDE.md && cp files/CLAUDE.md ~/.claude/CLAUDE.md
+
+# Link skills to ~/.claude/skills
+for file in `ls agent/skills`; do
+	if [ ! -e ~/.claude/skills/$file ]; then
+		echo Linking skill $file to ~/.claude/skills/$file
+		ln -sf $PWD/agent/skills/$file ~/.claude/skills/$file
+	else
+		echo Skill $file already exists in ~/.claude/skills/$file, skipping
+	fi
+done
+
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
